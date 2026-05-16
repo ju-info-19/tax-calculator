@@ -1,33 +1,25 @@
 apiVersion: tekton.dev/v1beta1
-kind: Task
+kind: PipelineRun
 metadata:
-  name: npm
+  name: tax-calculator-run
 spec:
+  pipelineRef:
+    name: tax-calculator-pipeline
   params:
-    - name: directory
-      type: string
-      default: .
-  steps:
-    - name: npm-install
-      image: node:18-alpine
-      script: |
-        cd $(params.directory)
-        npm install
----
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: jasmine
-spec:
-  params:
-    - name: directory
-      type: string
-      default: .
-  steps:
-    - name: run-tests
-      image: node:18-alpine
-      script: |
-        cd $(params.directory)
-        npm install
-        npx jasmine
-        
+    - name: git-url
+      value: https://github.com/ju-info-19/juphc-tc_pipeline
+    - name: git-revision
+      value: main
+    - name: namespace
+      value: sn-labs-votre-namespace
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+
+              
