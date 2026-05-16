@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm
+spec:
+  params:
+    - name: directory
+      type: string
+      default: .
+  steps:
+    - name: npm-install
+      image: node:18-alpine
+      script: |
+        cd $(params.directory)
+        npm install
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: jasmine
+spec:
+  params:
+    - name: directory
+      type: string
+      default: .
+  steps:
+    - name: run-tests
+      image: node:18-alpine
+      script: |
+        cd $(params.directory)
+        npm install
+        npx jasmine

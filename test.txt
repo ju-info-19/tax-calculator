@@ -1,0 +1,13 @@
+tax-calculator/
+├── favicon.ico
+├── index.html
+├── script.js
+├── style.css
+├── taxCalculator.js
+├── spec/
+│   └── taxCalculator.spec.js
+├── Dockerfile
+├── tasks.yaml
+├── pipeline.yaml
+├── run.yaml
+└── README.md

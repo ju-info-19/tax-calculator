@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: tax-calculator-run
+spec:
+  pipelineRef:
+    name: tax-calculator-pipeline
+  params:
+    - name: git-url
+      value: https://github.com/ju-info-19/tax-calculator
+    - name: git-revision
+      value: main
+    - name: namespace
+      value: sn-labs-votre-namespace
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
