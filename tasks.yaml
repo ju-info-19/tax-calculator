@@ -30,3 +30,4 @@ spec:
         cd $(params.directory)
         npm install
         npx jasmine
+        
